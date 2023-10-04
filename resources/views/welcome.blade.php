@@ -130,7 +130,7 @@
         [type=reset],
         [type=submit],
         button {
-            -webkit-appearance: button;
+            /* -webkit-appearance: button; */
             background-color: transparent;
             background-image: none
         }
@@ -153,7 +153,7 @@
         }
 
         [type=search] {
-            -webkit-appearance: textfield;
+            /* -webkit-appearance: textfield; */
             outline-offset: -2px
         }
 
@@ -231,7 +231,7 @@
         svg,
         video {
             display: block;
-            vertical-align: middle
+            /* vertical-align: middle */
         }
 
         img,
@@ -835,7 +835,7 @@
         @if (Route::has('login'))
         <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
             @auth
-            <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
             @else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
