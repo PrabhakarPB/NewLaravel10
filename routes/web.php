@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Profile\AvatarController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Members;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,8 @@ use App\Models\Members;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-
+    return view('welcome');
+ 
     //Raw Sql queries
     // //fetch all members
     // $members = DB::select('Select * from members');
@@ -120,9 +122,48 @@ Route::get('/', function () {
     // $members->delete();
     // dd($members);
 
+    // $user = DB::insert(
+    //     'insert into users(name,email,password) Values(?,?,?)',
+    //     [
+    //         "Prabhakar 1",
+    //         "prabhakarbudkuley1@gmail.com",
+    //         "password"
+    //     ]
+    // );
+
+    // $user = DB::table('users')->insert(
+    //     [
+    //         'name' => 'Prabhakar 2',
+    //         'email' => 'prabhakarbudkuley2@gmail.com',
+    //         'password' => 'password'
+    //     ]
+    // );
+
+    // $user = User::create([
+    //     'name' => 'Prabhakar 3',
+    //     'email' => 'prabhakarbudkuley3@gmail.com',
+    //     'password' => 'password',
+    // ]);
+    // $user = User::create([
+    //     'name' => 'Prabhakar 4',
+    //     'email' => 'prabhakarbudkuley4@gmail.com',
+    //     'password' => bcrypt('password'),
+    // ]);
 
 
 
+    // //mutators
+    // $user = User::create([
+    //     'name' => 'Prabhakar 5',
+    //     'email' => 'prabhakarbudkuley5@gmail.com',
+    //     'password' => bcrypt('password'),
+    // ]);
+    // $users = User::all();
+
+    //accessors
+    // $user = User::find(4);
+
+    // dd($user->name);
 
 });
 
@@ -134,6 +175,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
