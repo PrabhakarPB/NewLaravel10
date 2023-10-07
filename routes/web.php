@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Members;
 use App\Models\User;
+use OpenAI\Laravel\Facades\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -178,6 +179,43 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::patch('/profile/avatar/ai', [AvatarController::class, 'generate'])->name('profile.avatar.ai');
+
 });
 
 require __DIR__ . '/auth.php';
+
+//create text with ai
+// Route::get('/openai', function () {
+//     $result = OpenAI::completions()->create([
+//         'model' => 'text-davinci-003',
+//         'prompt' => 'PHP is',
+//     ]);
+
+//     echo $result['choices'][0]['text'];
+// });
+
+//create image
+// Route::get('/openai', function () {
+//     $result = OpenAI::images()->create([
+//         "prompt" => "A cute baby sea otter",//type of image
+//         "n" => 2, //number of images,
+//         "size" => "256x256", //size of image
+//     ]);
+
+//     dd($result);
+// });
+
+
+//create avatar
+// Route::get('/openai', function () {
+//     $result = OpenAI::images()->create([
+//         "prompt" => "create avatar for user with cool style animated with tech world",
+//         "n" => 1,
+//         "size" => "256x256",
+//     ]);
+
+//     // return response(['url'=> $result->data[0]->url]);
+//     dd($result->data[0]->url);
+// });
