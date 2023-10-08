@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use App\Models\Members;
 use App\Models\User;
 use OpenAI\Laravel\Facades\OpenAI;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -219,3 +220,27 @@ require __DIR__ . '/auth.php';
 //     // return response(['url'=> $result->data[0]->url]);
 //     dd($result->data[0]->url);
 // });
+
+
+
+
+Route::post('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('Login.github');
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+    $user = User::firstOrCreate(
+        ['email' => $user->email],
+        [
+            'name' => $user->name,
+            'password' => 'password'
+        ]
+    );
+
+    Auth::login($user);
+    return redirect('/dashboard');
+
+    dd($user);
+    // $user->token
+});
