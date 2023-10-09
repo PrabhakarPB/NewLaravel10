@@ -11,6 +11,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Hashing\HashManager;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -64,4 +66,21 @@ class User extends Authenticatable
             get: fn (string $value) => strtoupper($value),
         );
     }
+
+
+    protected function isAdmin(): Attribute
+    {
+        $admins = ['prabhakarbudkuley@gmail.com', 'prabhakarbud@gmail.com'];
+
+        return Attribute::make(
+
+            get: fn () => in_array($this->email, $admins)
+        );
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
 }

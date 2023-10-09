@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Profile\AvatarController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
@@ -243,4 +244,12 @@ Route::get('/auth/callback', function () {
 
     dd($user);
     // $user->token
+});
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::resource('/ticket', TicketController::class);
+    // Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
+    // Route::post('/ticket/create', [TicketController::class, 'store'])->name('ticket.store');
 });
